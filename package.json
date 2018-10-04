@@ -97,5 +97,6 @@
         "./tests/fixtures/**/*"
       ]
     }
-  }
+  },
+  "private": false
 }

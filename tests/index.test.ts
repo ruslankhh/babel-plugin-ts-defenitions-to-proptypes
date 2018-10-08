@@ -21,7 +21,7 @@ function transform(filePath: string, options: any = {}, pluginOptions: PluginOpt
   );
 }
 
-describe('babel-plugin-typescript-to-proptypes', () => {
+describe('babel-plugin-ts-definitions-to-proptypes', () => {
   glob
     .sync('./fixtures/**/*.ts', { cwd: __dirname, dot: false, strict: true })
     .forEach(filePath => {
@@ -155,27 +155,4 @@ describe('babel-plugin-typescript-to-proptypes', () => {
     ).toMatchSnapshot();
   });
 
-  it('supports forbid extra props', () => {
-    expect(
-      transform(
-        path.join(__dirname, './fixtures/special/forbid-extra-props.ts'),
-        {},
-        {
-          forbidExtraProps: true,
-        },
-      ),
-    ).toMatchSnapshot();
-  });
-
-  it('supports merging with forbid extra props', () => {
-    expect(
-      transform(
-        path.join(__dirname, './fixtures/special/merge-forbid-extra-props.ts'),
-        {},
-        {
-          forbidExtraProps: true,
-        },
-      ),
-    ).toMatchSnapshot();
-  });
 });

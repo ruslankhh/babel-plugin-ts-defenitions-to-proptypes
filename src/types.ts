@@ -7,12 +7,6 @@ export type TypePropertyMap = { [key: string]: t.TSPropertySignature[] };
 export type PropType = t.MemberExpression | t.CallExpression | t.Identifier;
 
 export type ConvertState = {
-  airbnbPropTypes: {
-    count: number;
-    forbidImport: string;
-    hasImport: boolean;
-    namedImports: string[];
-  };
   componentTypes: TypePropertyMap;
   filePath: string;
   options: PluginOptions;
@@ -26,6 +20,4 @@ export type ConvertState = {
 
 export type PluginOptions = {
   customPropTypeSuffixes?: string[];
-  forbidExtraProps?: boolean;
-  declarePropTypeVariables?: boolean;
 };

@@ -2,27 +2,22 @@ import { types as t } from '@babel/core';
 import { ConvertState } from './types';
 
 export function createPropTypesObject(
-  propTypes: t.ObjectProperty[],
-  state: ConvertState,
+  propTypes: t.ObjectProperty[]
 ): t.CallExpression | t.ObjectExpression {
   const object = t.objectExpression(propTypes);
 
-  // Wrap with forbid
-  return state.options.forbidExtraProps
-    ? t.callExpression(t.identifier(state.airbnbPropTypes.forbidImport), [object])
-    : object;
+  return object;
 }
 
 export function mergePropTypes(
   expr: any,
   propTypes: t.ObjectProperty[],
   state: ConvertState,
-  wrapForbid: boolean = true,
 ): t.CallExpression | t.ObjectExpression {
   if (t.isCallExpression(expr)) {
     if (t.isIdentifier(expr.callee, { name: 'forbidExtraProps' })) {
       expr.arguments.forEach((arg, index) => {
-        expr.arguments[index] = mergePropTypes(arg, propTypes, state, false);
+        expr.arguments[index] = mergePropTypes(arg, propTypes, state);
       });
     }
 
@@ -49,11 +44,6 @@ export function mergePropTypes(
       properties.unshift(propType);
     }
   });
-
-  // Wrap with forbid
-  if (wrapForbid && state.options.forbidExtraProps) {
-    return t.callExpression(t.identifier(state.airbnbPropTypes.forbidImport), [expr]);
-  }
 
   return expr;
 }

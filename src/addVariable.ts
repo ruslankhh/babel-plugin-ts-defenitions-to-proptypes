@@ -21,7 +21,7 @@ export default function addVariable(
     [
       t.variableDeclarator(
         t.identifier(name),
-        createPropTypesObject(propTypesList, state),
+        createPropTypesObject(propTypesList),
       ),
     ],
   );
